@@ -1,1 +1,77 @@
-/path
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Environment variables
+.env
+
+# Pytest cache
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# IDE settings
+.vscode/
+.idea/
+
+# Logs
+*.log
+*.out
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Compiled C extensions
+*.so
+
+# Test reports
+coverage.xml
+*.cover
+.hypothesis/
+.tox/
+nosetests.xml
+*.pid
+*.seed
+
+# Pip dependency file lock
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+MANIFEST
+
+# Sphinx documentation
+docs/_build/
+
+# Distribution / packaging
+*.tar.gz
+*.zip
+*.whl
+
+# Local database
+*.sqlite3
+*.db
+
+# Ignore node_modules (if frontend exists)
+node_modules/
+
+# Ignore data files
+data/
+*.txt
+
+# README or requirements lock files (optional to ignore)
+# README.md
+# requirements.txt

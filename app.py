@@ -46,7 +46,6 @@ class MultiModelSinhalaApp:
         def load_gemini():
             try:
                 genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
-                #genai.configure(api_key="AIzaSyD5-Te5Ai22sHHsbBg_IUtJ_Nj4kWUbL9s")
                 model = genai.GenerativeModel('gemini-pro')
                 logging.info("Gemini model loaded successfully.")
                 return model

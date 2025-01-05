@@ -11,15 +11,6 @@ class RuleBasedChecker:
             dictionary_path (str): Path to the Sinhala dictionary file
         """
         self.dictionary = self._load_dictionary(dictionary_path)
-        
-        # Subject-verb agreement rules
-        self.subject_verb_rules = {
-            'මම': ['මි'],
-            'අපි': ['මු'],
-            'ඔහු': ['ේය', 'හ'],
-            'ඇය': ['ාය', 'ීය']
-        }
-        
         self.grammar_rules = [
             {
                 'pattern': r'([අආඇඈඉඊඋඌඍඎඏඐඑඒඓඔඕඖ])\1+',
@@ -38,49 +29,11 @@ class RuleBasedChecker:
             }
         ]
         
-        # Add subject-verb agreement patterns
-        for subject, endings in self.subject_verb_rules.items():
-            # Create a pattern that checks if a verb after the subject has the correct ending
-            pattern = f'{subject}\\s+\\w+(?!{"|".join(endings)}\\b)'
-            self.grammar_rules.append({
-                'pattern': pattern,
-                'description': f'Incorrect verb ending for subject "{subject}"',
-                'suggestion': f'Use verb ending with {" or ".join(endings)} with subject {subject}'
-            })
-        
         self.word_endings = {
             'යි': 'ය',
             'න්': 'නය',
             'ට': 'ටය'
         }
-    
-    def _check_subject_verb_agreement(self, sentence: str) -> List[Dict[str, Any]]:
-        """Check subject-verb agreement in a sentence."""
-        errors = []
-        
-        for subject, valid_endings in self.subject_verb_rules.items():
-            # Find instances of the subject
-            subject_matches = re.finditer(r'\b' + re.escape(subject) + r'\b', sentence)
-            
-            for match in subject_matches:
-                # Get the next word (potential verb)
-                remaining_text = sentence[match.end():]
-                next_word_match = re.search(r'\s+(\w+)', remaining_text)
-                
-                if next_word_match:
-                    verb = next_word_match.group(1)
-                    # Check if the verb ends with any of the valid endings
-                    has_valid_ending = any(verb.endswith(ending) for ending in valid_endings)
-                    
-                    if not has_valid_ending:
-                        errors.append({
-                            'match': f"{subject} {verb}",
-                            'position': (match.start(), match.end() + next_word_match.end()),
-                            'description': f'Incorrect verb ending for subject "{subject}"',
-                            'suggestion': f'Use verb ending with {" or ".join(valid_endings)}'
-                        })
-        
-        return errors
     
     def _load_dictionary(self, path: str) -> set:
         """Load Sinhala dictionary from file."""
@@ -129,7 +82,6 @@ class RuleBasedChecker:
         """Check grammar rules in a sentence."""
         errors = []
         
-        # Check basic grammar rules
         for rule in self.grammar_rules:
             matches = re.finditer(rule['pattern'], sentence)
             for match in matches:
@@ -139,10 +91,6 @@ class RuleBasedChecker:
                     'description': rule['description'],
                     'suggestion': rule['suggestion']
                 })
-        
-        # Check subject-verb agreement
-        subject_verb_errors = self._check_subject_verb_agreement(sentence)
-        errors.extend(subject_verb_errors)
         
         return errors
     

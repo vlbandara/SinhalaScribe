@@ -14,9 +14,17 @@ class GeminiChecker:
         2. Any spelling errors found
         3. Suggestions for improvement
         4. Corrected version
-        
-        Please respond in both Sinhala and English.
-        Format the response clearly with proper headings and bullet points.
+
+        Here are some sinhala grammer rules to help you:
+        start->end
+        මම -> මි
+        අපි -> මු
+
+        Please respond in Sinhala. As follow only,,
+        1. ව්‍යාකරණ වැරදි:
+        2. අක්ෂර වැරදි:
+        3. නිවැරදි යෝජනා:
+        4. නිවැරදි වාක්‍යය:
         """
         
         try:
